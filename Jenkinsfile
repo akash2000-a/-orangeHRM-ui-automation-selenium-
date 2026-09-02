@@ -1,9 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        dockerfile true
+    }
 
     environment {
         HEADLESS = 'true'
-        PATH = "C:\\temp\\maven\\apache-maven-3.9.9\\bin;${env.PATH}"
     }
 
     stages {
@@ -15,14 +16,14 @@ pipeline {
         }
         stage('Compile and prepare test suite') {
             steps {
-                echo 'Compiling the project and preparing test suite...'
-                bat 'mvn test-compile'
+                echo 'Compiling the project and preparing test suite inside Docker container...'
+                sh 'mvn clean test-compile'
             }
         }
         stage('Execute UI Automation Tests') {
             steps {
-                echo 'Executing TestNG Suite in headless browser...'
-                bat 'mvn test'
+                echo 'Executing TestNG Suite in headless browser inside Docker container...'
+                sh 'mvn test'
             }
         }
     }
@@ -39,5 +40,6 @@ pipeline {
         }
     }
 }
+
 
 
