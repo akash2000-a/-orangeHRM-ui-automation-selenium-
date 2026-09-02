@@ -27,11 +27,14 @@ pipeline {
     }
     post {
         always {
-            echo 'Archiving Surefire test reports...'
-            archiveArtifacts artifacts: 'target/surefire-reports/**', allowEmptyArchive: true
+            echo 'Publishing Allure Test Execution Report...'
+            allure includeProperties: false, 
+                   jdk: '', 
+                   results: [[path: 'target/allure-results']]
         }
         failure {
             echo 'Test execution failed.'
         }
     }
 }
+
