@@ -1,6 +1,8 @@
 pipeline {
     agent {
-        dockerfile true
+        dockerfile {
+            filename 'Dockerfile'
+        }
     }
 
     environment {
@@ -40,6 +42,7 @@ pipeline {
         }
     }
 }
+
 
 
 
