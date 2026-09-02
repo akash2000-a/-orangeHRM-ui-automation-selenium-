@@ -1,39 +1,37 @@
-pipeline{
+pipeline {
     agent any
-    
-    environment{
-        HEADLESS='true'
+
+    environment {
+        HEADLESS = 'true'
     }
-    stages{
-        stage('Checkout source code'){
-            steps{
+
+    stages {
+        stage('Checkout source code') {
+            steps {
                 echo 'Checking out source code...'
                 checkout scm
             }
         }
-        stage('Compile and prepare test suite'){
-            steps{
+        stage('Compile and prepare test suite') {
+            steps {
                 echo 'Compiling the project and preparing test suite...'
-                sh 'mvn test-compile'
+                bat 'mvn test-compile'
             }
         }
-        stage('Execute UI Automation Tests'){
-            steps{
+        stage('Execute UI Automation Tests') {
+            steps {
                 echo 'Executing TestNG Suite in headless browser...'
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
     }
-    post{
-        always{
-            echo 'Publishing Allure Test Execution Report...'
-            allure includeProperties: false, 
-                   jdk: '', 
-                   results: [[path: 'target/allure-results']]
+    post {
+        always {
+            echo 'Archiving Surefire test reports...'
+            archiveArtifacts artifacts: 'target/surefire-reports/**', allowEmptyArchive: true
         }
-        failure{
-            echo 'Test execution failed. Screenshots captured in target/screenshots'
+        failure {
+            echo 'Test execution failed.'
         }
     }
-
 }
