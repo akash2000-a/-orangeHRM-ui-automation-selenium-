@@ -39,4 +39,4 @@ screenshots/
 Thumbs.db
 
 # Configuration (if contains sensitive data)
-config.properties
+# config.properties
