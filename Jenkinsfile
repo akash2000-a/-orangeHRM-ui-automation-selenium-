@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         HEADLESS = 'true'
+        PATH = "C:\\temp\\maven\\apache-maven-3.9.9\\bin;${env.PATH}"
     }
 
     stages {
@@ -28,7 +29,8 @@ pipeline {
     post {
         always {
             echo 'Publishing Allure Test Execution Report...'
-            allure includeProperties: false, 
+            allure commandline: 'Allure',
+                   includeProperties: false, 
                    jdk: '', 
                    results: [[path: 'target/allure-results']]
         }
@@ -37,4 +39,5 @@ pipeline {
         }
     }
 }
+
 
