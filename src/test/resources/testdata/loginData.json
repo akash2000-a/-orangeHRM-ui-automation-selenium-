@@ -1,0 +1,17 @@
+[
+  {
+    "username": "InvalidAdmin",
+    "password": "admin123",
+    "expectedErrorMessage": "Invalid credentials"
+  },
+  {
+    "username": "Admin",
+    "password": "wrongPassword",
+    "expectedErrorMessage": "Invalid credentials"
+  },
+  {
+    "username": "abc@123",
+    "password": "xyz@456",
+    "expectedErrorMessage": "Invalid credentials"
+  }
+]
